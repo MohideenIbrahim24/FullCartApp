@@ -476,3 +476,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 FullCart.Api/appsettings.json
+/FullCart.UI/.angular/cache/16.2.12/angular-webpack
+/FullCart.UI/.angular/cache/16.2.12/babel-webpack

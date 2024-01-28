@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddCors();
 //Infrastructure DI only - API needs to DI into Application services
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-
+ 
 
 
 
@@ -30,7 +30,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
