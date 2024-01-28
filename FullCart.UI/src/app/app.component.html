@@ -1,0 +1,12 @@
+<app-navbar></app-navbar>
+<div class="container py-2">
+  <h2>Welcome to {{title}}</h2>
+
+  <div class="row">
+    <div class="col-md-6">
+      <ul *ngFor="let product of products">
+        <li>{{product.productName}}</li>
+      </ul>
+    </div>
+  </div>
+</div>
