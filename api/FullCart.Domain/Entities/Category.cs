@@ -13,8 +13,8 @@ public class Category : BaseAuditableEntity
     public string CategoryName { get; set; }    
     public string CategoryDescription { get; set; }
     public int CategoryDisplayOrder { get; set; }
-    public ICollection<Product> Products { get; } = new List<Product>();
-    public ICollection<CartItem> CartItems { get; } = new List<CartItem>();
+    //public ICollection<Product> Products { get; } = new List<Product>();
+    //public ICollection<CartItem> CartItems { get; } = new List<CartItem>();
     public Category()
     {
         this.Id = Guid.NewGuid();

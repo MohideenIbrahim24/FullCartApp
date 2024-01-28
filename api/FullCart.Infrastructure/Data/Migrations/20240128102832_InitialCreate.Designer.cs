@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FullCart.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(CartDbContext))]
-    [Migration("20240127110659_CreateInitials")]
-    partial class CreateInitials
+    [Migration("20240128102832_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,8 +45,8 @@ namespace FullCart.Infrastructure.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("CreatedOn")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -54,12 +54,47 @@ namespace FullCart.Infrastructure.Data.Migrations
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("LastModifiedOn")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime>("LastModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("d6ae1da1-3714-4569-a15e-40e0560950f4"),
+                            CategoryDisplayOrder = 1,
+                            CategoryName = "Electronics",
+                            CreatedBy = "ehuddart0",
+                            CreatedOn = new DateTime(2023, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            LastModifiedBy = "biacovelli0",
+                            LastModifiedOn = new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("f571e72e-b0bb-4154-aa40-54eef54e361f"),
+                            CategoryDisplayOrder = 2,
+                            CategoryName = "Wear",
+                            CreatedBy = "tstillwell1",
+                            CreatedOn = new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            LastModifiedBy = "sspinnace1",
+                            LastModifiedOn = new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("fcc87eef-d49d-4d8a-a992-1aadef93ac8a"),
+                            CategoryDisplayOrder = 3,
+                            CategoryName = "Books",
+                            CreatedBy = "tstillwell1",
+                            CreatedOn = new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            LastModifiedBy = "sspinnace1",
+                            LastModifiedOn = new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("FullCart.Domain.Entities.AppUser", b =>
@@ -145,12 +180,49 @@ namespace FullCart.Infrastructure.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastModifiedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Brands");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9696fcc5-efac-49ed-a0ca-6c078e9e8c43"),
+                            CreatedBy = "ehuddart0",
+                            CreatedOn = new DateTime(2023, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            LastModifiedBy = "biacovelli0",
+                            LastModifiedOn = new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Little Group"
+                        },
+                        new
+                        {
+                            Id = new Guid("36cb558c-bea9-467a-9d5b-8421257bd274"),
+                            CreatedBy = "tstillwell1",
+                            CreatedOn = new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            LastModifiedBy = "sspinnace1",
+                            LastModifiedOn = new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Heathcote and Sons"
+                        });
                 });
 
             modelBuilder.Entity("FullCart.Domain.Entities.CartItem", b =>
@@ -180,14 +252,17 @@ namespace FullCart.Infrastructure.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("CreatedOn")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("LastModifiedOn")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime>("LastModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -213,27 +288,34 @@ namespace FullCart.Infrastructure.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("CreatedOn")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("LastModifiedOn")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime>("LastModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("ProductDescription")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(180)
+                        .HasColumnType("nvarchar(180)");
 
                     b.Property<string>("ProductImageUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<double>("ProductPrice")
-                        .HasColumnType("float");
+                    b.Property<decimal>("ProductPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -242,6 +324,83 @@ namespace FullCart.Infrastructure.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("f2bb07e9-aa65-443a-80e9-ebae5f634ad0"),
+                            BrandId = new Guid("9685bffe-a1ab-4f45-aee1-5f3ecdd0ac5c"),
+                            CategoryId = new Guid("7bec4a97-51e0-44f8-8512-9d4f2d8a9a10"),
+                            CreatedBy = "ehuddart0",
+                            CreatedOn = new DateTime(2023, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            LastModifiedBy = "biacovelli0",
+                            LastModifiedOn = new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProductDescription = "tortor sollicitudin mi sit amet lobortis sapien sapien non mi integer ac neque duis bibendum morbi non",
+                            ProductImageUrl = "http://dummyimage.com/174x100.png/cc0000/ffffff",
+                            ProductName = "Accelerate Diagnostics, Inc.",
+                            ProductPrice = 10000m
+                        },
+                        new
+                        {
+                            Id = new Guid("43b37b97-8eb4-44b8-9953-1f4b0c4cff13"),
+                            BrandId = new Guid("b89697c1-3458-4af2-9ed5-0397d0132f19"),
+                            CategoryId = new Guid("7bec4a97-51e0-44f8-8512-9d4f2d8a9a10"),
+                            CreatedBy = "tstillwell1",
+                            CreatedOn = new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            LastModifiedBy = "sspinnace1",
+                            LastModifiedOn = new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProductDescription = "molestie nibh in lectus pellentesque at nulla suspendisse potenti cras in purus",
+                            ProductImageUrl = "http=//dummyimage.com/186x100.png/5fa2dd/ffffff",
+                            ProductName = "Lennox International, Inc.",
+                            ProductPrice = 69752m
+                        },
+                        new
+                        {
+                            Id = new Guid("cf00d299-43a9-40a9-bda6-0e5f4d9824ae"),
+                            BrandId = new Guid("9685bffe-a1ab-4f45-aee1-5f3ecdd0ac5c"),
+                            CategoryId = new Guid("7bec4a97-51e0-44f8-8512-9d4f2d8a9a10"),
+                            CreatedBy = "ehuddart0",
+                            CreatedOn = new DateTime(2023, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            LastModifiedBy = "biacovelli0",
+                            LastModifiedOn = new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProductDescription = "tortor sollicitudin mi sit amet lobortis sapien sapien non mi integer ac neque duis bibendum morbi non",
+                            ProductImageUrl = "http://dummyimage.com/174x100.png/cc0000/ffffff",
+                            ProductName = "Diagnostics, Iasnc.",
+                            ProductPrice = 10000m
+                        },
+                        new
+                        {
+                            Id = new Guid("7c312622-45d6-4791-8ec6-e8ac26e2adc0"),
+                            BrandId = new Guid("9685bffe-a1ab-4f45-aee1-5f3ecdd0ac5c"),
+                            CategoryId = new Guid("7bec4a97-51e0-44f8-8512-9d4f2d8a9a10"),
+                            CreatedBy = "ehuddart0",
+                            CreatedOn = new DateTime(2023, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            LastModifiedBy = "biacovelli0",
+                            LastModifiedOn = new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProductDescription = "tortor sollicis sapien sapien non mi integer ac neque duis bibendum morbi non",
+                            ProductImageUrl = "http://dummyimage.com/174x100.png/cc0000/ffffff",
+                            ProductName = "Accelerate Insc.",
+                            ProductPrice = 20000m
+                        },
+                        new
+                        {
+                            Id = new Guid("eab147a5-4713-428d-b81a-5abe5c44ae9b"),
+                            BrandId = new Guid("9685bffe-a1ab-4f45-aee1-5f3ecdd0ac5c"),
+                            CategoryId = new Guid("7bec4a97-51e0-44f8-8512-9d4f2d8a9a10"),
+                            CreatedBy = "ehuddart0",
+                            CreatedOn = new DateTime(2023, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            LastModifiedBy = "biacovelli0",
+                            LastModifiedOn = new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProductDescription = "tortor sollobortis sapien sapien non mi integer ac neque duis bibendum morbi non",
+                            ProductImageUrl = "http://dummyimage.com/174x100.png/cc0000/ffffff",
+                            ProductName = "Accesadsasfsalercs, Issnc.",
+                            ProductPrice = 13000m
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -380,13 +539,13 @@ namespace FullCart.Infrastructure.Data.Migrations
             modelBuilder.Entity("FullCart.Domain.Entities.CartItem", b =>
                 {
                     b.HasOne("FullCart.Domain.Entities.Brand", "Brand")
-                        .WithMany("CartItems")
+                        .WithMany()
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FullCart.Domain.Category", "Category")
-                        .WithMany("CartItems")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -399,13 +558,13 @@ namespace FullCart.Infrastructure.Data.Migrations
             modelBuilder.Entity("FullCart.Domain.Entities.Product", b =>
                 {
                     b.HasOne("FullCart.Domain.Entities.Brand", "Brand")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FullCart.Domain.Category", "Category")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -464,20 +623,6 @@ namespace FullCart.Infrastructure.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("FullCart.Domain.Category", b =>
-                {
-                    b.Navigation("CartItems");
-
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("FullCart.Domain.Entities.Brand", b =>
-                {
-                    b.Navigation("CartItems");
-
-                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

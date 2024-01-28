@@ -9,15 +9,16 @@ namespace FullCart.Domain.Entities
         public string CartItemName { get; set; }
         public double CartItemPrice { get; set; }
         public int CartItemQuantity { get; set; }
-        public string CartItemImageUrl { get; set; }
-        
-        [DisplayName("CartItemCategoryId")]
+        public string CartItemImageUrl { get; set; }        
         public Guid CategoryId{ get; set; }
-        public Category Category { get; set; } = null!;
-        [DisplayName("CartItemBrandId")]
+        public Category Category { get; set; } = null!;       
         public Guid  BrandId { get; set; }
         public Brand Brand { get; set; } = null!;
-        
+        public CartItem()
+        {
+            this.Id = Guid.NewGuid();
+        }
+
 
     }
 }

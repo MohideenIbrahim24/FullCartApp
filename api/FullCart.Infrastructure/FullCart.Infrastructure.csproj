@@ -2,7 +2,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FullCart.Application\FullCart.Application.csproj" />
-    <ProjectReference Include="..\FullCart.Domain\FullCart.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,7 +19,7 @@
 
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
-    <Folder Include="Repositories\" />
+    <Folder Include="SeedData\" />
   </ItemGroup>
 
   <PropertyGroup>

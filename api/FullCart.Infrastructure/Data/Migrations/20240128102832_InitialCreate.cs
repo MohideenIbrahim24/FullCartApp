@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace FullCart.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateInitials : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -59,7 +61,12 @@ namespace FullCart.Infrastructure.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -74,11 +81,11 @@ namespace FullCart.Infrastructure.Data.Migrations
                     CategoryName = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     CategoryDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CategoryDisplayOrder = table.Column<int>(type: "int", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    LastModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -202,10 +209,11 @@ namespace FullCart.Infrastructure.Data.Migrations
                     CartItemImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BrandId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    LastModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -229,16 +237,17 @@ namespace FullCart.Infrastructure.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProductDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProductPrice = table.Column<double>(type: "float", nullable: false),
-                    ProductImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ProductDescription = table.Column<string>(type: "nvarchar(180)", maxLength: 180, nullable: false),
+                    ProductPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ProductImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BrandId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    LastModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -255,6 +264,37 @@ namespace FullCart.Infrastructure.Data.Migrations
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Brands",
+                columns: new[] { "Id", "CreatedBy", "CreatedOn", "IsDeleted", "LastModifiedBy", "LastModifiedOn", "Name" },
+                values: new object[,]
+                {
+                    { new Guid("36cb558c-bea9-467a-9d5b-8421257bd274"), "tstillwell1", new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "sspinnace1", new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "Heathcote and Sons" },
+                    { new Guid("9696fcc5-efac-49ed-a0ca-6c078e9e8c43"), "ehuddart0", new DateTime(2023, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "biacovelli0", new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "Little Group" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "CategoryDescription", "CategoryDisplayOrder", "CategoryName", "CreatedBy", "CreatedOn", "IsDeleted", "LastModifiedBy", "LastModifiedOn" },
+                values: new object[,]
+                {
+                    { new Guid("d6ae1da1-3714-4569-a15e-40e0560950f4"), null, 1, "Electronics", "ehuddart0", new DateTime(2023, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "biacovelli0", new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { new Guid("f571e72e-b0bb-4154-aa40-54eef54e361f"), null, 2, "Wear", "tstillwell1", new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "sspinnace1", new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { new Guid("fcc87eef-d49d-4d8a-a992-1aadef93ac8a"), null, 3, "Books", "tstillwell1", new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "sspinnace1", new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "BrandId", "CategoryId", "CreatedBy", "CreatedOn", "IsDeleted", "LastModifiedBy", "LastModifiedOn", "ProductDescription", "ProductImageUrl", "ProductName", "ProductPrice" },
+                values: new object[,]
+                {
+                    { new Guid("43b37b97-8eb4-44b8-9953-1f4b0c4cff13"), new Guid("36cb558c-bea9-467a-9d5b-8421257bd274"), new Guid("d6ae1da1-3714-4569-a15e-40e0560950f4"), "tstillwell1", new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "sspinnace1", new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "molestie nibh in lectus pellentesque at nulla suspendisse potenti cras in purus", "http=//dummyimage.com/186x100.png/5fa2dd/ffffff", "Lennox International, Inc.", 69752m },
+                    { new Guid("7c312622-45d6-4791-8ec6-e8ac26e2adc0"), new Guid("36cb558c-bea9-467a-9d5b-8421257bd274"), new Guid("d6ae1da1-3714-4569-a15e-40e0560950f4"), "ehuddart0", new DateTime(2023, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "biacovelli0", new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "tortor sollicis sapien sapien non mi integer ac neque duis bibendum morbi non", "http://dummyimage.com/174x100.png/cc0000/ffffff", "Accelerate Insc.", 20000m },
+                    { new Guid("cf00d299-43a9-40a9-bda6-0e5f4d9824ae"), new Guid("36cb558c-bea9-467a-9d5b-8421257bd274"), new Guid("fcc87eef-d49d-4d8a-a992-1aadef93ac8a"), "ehuddart0", new DateTime(2023, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "biacovelli0", new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "tortor sollicitudin mi sit amet lobortis sapien sapien non mi integer ac neque duis bibendum morbi non", "http://dummyimage.com/174x100.png/cc0000/ffffff", "Diagnostics, Iasnc.", 10000m },
+                    { new Guid("eab147a5-4713-428d-b81a-5abe5c44ae9b"), new Guid("9696fcc5-efac-49ed-a0ca-6c078e9e8c43"), new Guid("d6ae1da1-3714-4569-a15e-40e0560950f4"), "ehuddart0", new DateTime(2023, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "biacovelli0", new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "tortor sollobortis sapien sapien non mi integer ac neque duis bibendum morbi non", "http://dummyimage.com/174x100.png/cc0000/ffffff", "Accesadsasfsalercs, Issnc.", 13000m },
+                    { new Guid("f2bb07e9-aa65-443a-80e9-ebae5f634ad0"), new Guid("9696fcc5-efac-49ed-a0ca-6c078e9e8c43"), new Guid("fcc87eef-d49d-4d8a-a992-1aadef93ac8a"), "ehuddart0", new DateTime(2023, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "biacovelli0", new DateTime(2023, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "tortor sollicitudin mi sit amet lobortis sapien sapien non mi integer ac neque duis bibendum morbi non", "http://dummyimage.com/174x100.png/cc0000/ffffff", "Accelerate Diagnostics, Inc.", 10000m }
                 });
 
             migrationBuilder.CreateIndex(
