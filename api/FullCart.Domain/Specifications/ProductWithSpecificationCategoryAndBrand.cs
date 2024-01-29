@@ -16,7 +16,7 @@ public class ProductWithSpecificationCategoryAndBrand : BaseSpecification<Produc
         AddInclude(Z => Z.Brand);
         AddOrderBy(x => x.ProductName);
 
-        ApplyPaging(productSpecParams.pageSize * (productSpecParams.pageIndex), productSpecParams.pageSize);
+        ApplyPaging(productSpecParams.pageSize * (productSpecParams.pageIndex - 1), productSpecParams.pageSize);
         if (!string.IsNullOrEmpty(productSpecParams.sort))
         {
             switch (productSpecParams.sort)

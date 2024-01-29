@@ -42,7 +42,7 @@ public class BaseSpecification<T> : ISpecification<T>
     }
     public void ApplyPaging(int skip, int take)
     {        
-        // Skip = skip;
+        Skip = skip;
         Take = take;
         isPagingEnabled = true;
     }
