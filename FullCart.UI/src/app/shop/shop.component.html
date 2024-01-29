@@ -39,7 +39,7 @@
                 </app-paging-header>               
                 <div class="d-flex mt-2">
                     <input type="text" class="form-control me-2 my-2" style="width: 300px;"
-                        placeholder="Search the products..." #search>
+                        placeholder="Search the products..." (keyup.enter)="onSearch()" #search>
                     <button type="button" class="btn btn-outline-primary my-2" (click)="onSearch()">
                         Search
                     </button>
