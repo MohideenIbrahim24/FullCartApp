@@ -37,16 +37,16 @@
                     [pageSize]="shopParams.pageSize"
                     [totalCount]="totalCount">
                 </app-paging-header>               
-                <form class="d-flex mt-2">
+                <div class="d-flex mt-2">
                     <input type="text" class="form-control me-2 my-2" style="width: 300px;"
                         placeholder="Search the products..." #search>
-                    <button class="btn btn-outline-primary my-2" (click)="onSearch()">
+                    <button type="button" class="btn btn-outline-primary my-2" (click)="onSearch()">
                         Search
                     </button>
-                    <button class="btn btn-outline-secondary my-2 ms-2" (click)="onReset()">
+                    <button type="button" class="btn btn-outline-secondary my-2 ms-2" (click)="onReset()">
                         Reset
                     </button>
-                </form>
+                </div>
             </div>
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
