@@ -40,10 +40,10 @@ public class BaseSpecification<T> : ISpecification<T>
     {
         OrderByDescending = OrderByDecending;
     }
-    public void ApplyPagging(int take, int skip)
-    {
+    public void ApplyPaging(int skip, int take)
+    {        
+        // Skip = skip;
         Take = take;
-        //Skip = skip;
         isPagingEnabled = true;
     }
 }

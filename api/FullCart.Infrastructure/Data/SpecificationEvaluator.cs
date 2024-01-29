@@ -21,7 +21,7 @@ public class SpecificationEvaluator<TDataEntity> where TDataEntity : BaseEntity
         {
             Query = Query.OrderByDescending(spec.OrderByDescending);
         }
-        if (spec.isPagingEnabled != null)
+        if (spec.isPagingEnabled)
         {
             Query = Query.Skip(spec.Skip).Take(spec.Take);
         }
