@@ -4,6 +4,7 @@ using FullCart.Domain;
 using FullCart.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FullCart.Infrastructure.Data
 {
@@ -20,6 +21,27 @@ namespace FullCart.Infrastructure.Data
         {
             base.OnModelCreating(builder);
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+             if(Database.ProviderName =="Microsoft.EntityFrameworkCore.SqlServer")
+            {
+                foreach (var entity in builder.Model.GetEntityTypes())
+                {
+                    var properties = entity.ClrType.GetProperties()
+                        .Where(p => p.PropertyType == typeof(decimal));
+                    var dateandtimepropertise = entity.ClrType.GetProperties()
+                        .Where(t => t.PropertyType == typeof(DateTimeOffset));
+                    foreach (var property in properties)
+                    {
+                        builder.Entity(entity.Name).Property(property.Name)
+                            .HasConversion<double>();
+                    }
+                    foreach (var property in dateandtimepropertise)
+                    {
+                        builder.Entity(entity.Name).Property(property.Name)
+                            .HasConversion(new DateTimeOffsetToBinaryConverter());
+                    }
+                }
+            }
            
         }
     }

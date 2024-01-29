@@ -3,42 +3,42 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FullCart.Domain;
 
-public class ProductWithSpecificationCategoryAndBrand: BaseSpecification<Product>
+public class ProductWithSpecificationCategoryAndBrand : BaseSpecification<Product>
 {
-     public ProductWithSpecificationCategoryAndBrand([FromQuery]ProductSpecParams productSpecPrams)
-            : base
-            (x =>
-            (string.IsNullOrEmpty(productSpecPrams.Search) || x.ProductName == productSpecPrams.Search) &&
-            (!productSpecPrams.brandId.HasValue || x.BrandId == productSpecPrams.brandId)
-             && (!productSpecPrams.categoryId.HasValue || x.CategoryId == productSpecPrams.categoryId))
+    public ProductWithSpecificationCategoryAndBrand([FromQuery] ProductSpecParams productSpecParams)
+           : base
+           (x =>
+           (string.IsNullOrEmpty(productSpecParams.search) || x.ProductName == productSpecParams.search) &&
+           (!productSpecParams.brandId.HasValue || x.BrandId == productSpecParams.brandId)
+            && (!productSpecParams.categoryId.HasValue || x.CategoryId == productSpecParams.categoryId))
+    {
+        AddInclude(Y => Y.Category);
+        AddInclude(Z => Z.Brand);
+        AddOrderBy(x => x.ProductName);
+
+        ApplyPaging(productSpecParams.pageSize * (productSpecParams.pageIndex), productSpecParams.pageSize);
+        if (!string.IsNullOrEmpty(productSpecParams.sort))
         {
-          AddInclude(Y=>Y.Category);
-          AddInclude(Y=>Y.Category);
-          AddInclude(Z=>Z.Brand);
-          AddOrderBy(x=>x.ProductName);
-          ApplyPagging(productSpecPrams.pageSize*(productSpecPrams.pageIndex),productSpecPrams.pageSize);
-            if(string.IsNullOrEmpty(productSpecPrams.sort))
+            switch (productSpecParams.sort)
             {
-                switch(productSpecPrams.sort)
-                {
-                    case "priceAsc":
-                        AddOrderBy(p => p.ProductPrice);
-                        break;
-                    case "priceDesc":
-                        AddOrderByDecending(p=> p.ProductPrice);
-                        break;
-                    default:
-                        AddOrderBy(n => n.ProductName);
-                        break;
-                }
+                case "productPriceAsc":
+                    AddOrderBy(p => p.ProductPrice);
+                    break;
+                case "productPriceDesc":
+                    AddOrderByDecending(p => p.ProductPrice);
+                    break;
+                default:
+                    AddOrderBy(n => n.ProductName);
+                    break;
             }
         }
+    }
 
-        public ProductWithSpecificationCategoryAndBrand(Guid Id) 
-            : base(x=>x.Id==Id)
-        {
-            AddInclude(x => x.Category);
-            AddInclude(x => x.Brand);
-        }
+    public ProductWithSpecificationCategoryAndBrand(Guid Id)
+        : base(x => x.Id == Id)
+    {
+        AddInclude(x => x.Category);
+        AddInclude(x => x.Brand);
+    }
 
 }

@@ -14,7 +14,7 @@ public class ProductSpecParams
     public Guid? categoryId { get; set; }
     public string sort { get; set; }
     public string _search;
-    public string Search
+    public string search
     {
         get => _search;
         set => _search = value.ToLower();
