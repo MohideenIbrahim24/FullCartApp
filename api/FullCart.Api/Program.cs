@@ -1,28 +1,22 @@
-using FullCart.Api;
-using FullCart.Application;
-using FullCart.Infrastructure;
-using FullCart.Infrastructure.Data;
+using FullCart.Api.Extensions;
+using FullCart.Domain.Entities.Identities;
+using FullCart.Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddCors();
-//Infrastructure DI only - API needs to DI into Application services
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
- 
-
-
-builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddControllers();
+
+//Extension Methods
+builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddIdentityServices(builder.Configuration);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddDbContext<CartDbContext>(options =>
-             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
@@ -35,22 +29,28 @@ if (app.Environment.IsDevelopment())
 app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
-// var loggerfactory = scope.ServiceProvider.GetService<ILoggerFactory>();
-// try{
+var loggerfactory = services.GetService<ILoggerFactory>();
+try{
 //     var context = services.GetRequiredService<CartDbContext>();
 //     await context.Database.MigrateAsync();
 //     // await CartContextSeed.SeedAsync(context, loggerfactory!);
-// }
-// catch(Exception ex)
-// {
-//     var logger = services.GetService<ILogger<Program>>();
-//     logger?.LogError(ex,"An error occured during migration");
-// }
+
+        var userManager = services.GetRequiredService<UserManager<AppUser>>();
+        var identityContext = services.GetRequiredService<AppIdentityDbContext>();
+        await identityContext.Database.MigrateAsync();
+        await AppIdentityDbContextSeed.SeedUsersAsync(userManager);
+}
+catch(Exception ex)
+{
+    var logger = services.GetService<ILogger<Program>>();
+    logger?.LogError(ex,"An error occured during migration");
+}
 
 app.Run();
