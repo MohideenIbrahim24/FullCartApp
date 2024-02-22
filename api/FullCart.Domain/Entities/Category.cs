@@ -1,7 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using FullCart.Domain.Common;
-using FullCart.Domain.Entities;
-using Microsoft.Extensions.Hosting;
 
 namespace FullCart.Domain;
 

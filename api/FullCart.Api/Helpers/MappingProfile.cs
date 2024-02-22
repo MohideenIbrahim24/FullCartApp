@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using FullCart.Api.DTOs;
 using FullCart.Domain.Entities;
+using FullCart.Domain.Entities.Identities;
 
 namespace FullCart.Api;
 
@@ -15,5 +17,6 @@ public class MappingProfile: Profile
             // CreateMap<CustomerCart, CustomercartDto>();
             // CreateMap<CartItem,CartItemDto>();
             // CreateMap<AddressDto, Core.Entities.OrderAggregate.Address>();
+            CreateMap<Address,AddressDto>().ReverseMap();
     }
 }

@@ -2,6 +2,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using FullCart.Domain;
 using FullCart.Domain.Entities;
+using FullCart.Domain.Entities.Identities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
