@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkFullCart_UI=self.webpackChunkFullCart_UI||[]).push([[592],{4282:(t,e,u)=>{u.d(e,{T:()=>l});const l={production:!1,apiUrl:"https://mohideenibrahim24.github.io/FullCartApp/api/"}}}]);
