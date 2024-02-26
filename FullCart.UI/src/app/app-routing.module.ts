@@ -6,7 +6,12 @@ import { ProductDetailsComponent } from './shop/product-details/product-details.
 
 const routes: Routes = [
   { path: '',component: HomeComponent},
-  { path: 'shop',loadChildren:() => import('./shop/shop.module').then(mod => mod.ShopModule) },
+  { path: 'shop',
+      loadChildren:() => import('./shop/shop.module').then(mod => mod.ShopModule),
+        data: {breadcrumb: 'Shop'} },
+  { path: 'account',
+      loadChildren:() => import('./account/account.module').then(mod => mod.AccountModule),
+        data: {breadcrumb: {skip: true}} },
   {path: 'contact', component: HomeComponent},
   { path: '**',redirectTo:'',pathMatch:'full'},
 ];

@@ -19,7 +19,8 @@ using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace FullCart.Api.Controllers
 {
-    [Route("[controller]")]
+    [ApiController]
+    [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
         private readonly ILogger<AccountController> _logger;
