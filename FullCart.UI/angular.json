@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist",
+            "outputPath": "dist/full-cart.ui",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -36,8 +36,7 @@
           },
           "configurations": {
             "production": {              
-              "baseHref": "/FullCartApp/FullCart.UI/",
-              
+
               "budgets": [
                 {
                   "type": "initial",
