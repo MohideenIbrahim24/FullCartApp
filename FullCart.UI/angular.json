@@ -37,6 +37,7 @@
           "configurations": {
             "production": {              
               "baseHref": "/FullCartApp/FullCart.UI/",
+              
               "budgets": [
                 {
                   "type": "initial",
